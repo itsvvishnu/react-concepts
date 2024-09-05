@@ -9,7 +9,7 @@
  * This is useful for tasks like focusing an input field or measuring the dimensions of an element:
  */
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, Ref } from 'react';
 
 function AutoFocusInput() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -29,3 +29,16 @@ export default AutoFocusInput;
  * This is useful for detecting changes in props or state:
  */
 
+
+export const UsePrevious = (prop:{value:number}) => {
+    const prevRef = useRef< number | undefined>(undefined)
+
+    useEffect(() => {
+        if(prevRef.current !== undefined && prevRef.current !== prop.value ){
+            console.log('Value changed:', prevRef.current, '->', prop.value);
+        }
+        prevRef.current = prop.value;
+    },[prop.value])
+
+    return <div>{prop.value}{prevRef.current}</div>
+};
